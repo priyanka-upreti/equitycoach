@@ -368,7 +368,7 @@ with st.sidebar:
     st.markdown(
         "- [GitHub repo](https://github.com/priyanka-upreti/equitycoach)\n"
         "- [EquityComp Calculator](https://equitycomp.streamlit.app) (sibling project)\n"
-        "- [NASPP AI Week Recap](https://linkedin.com) *(newsletter)*"
+        "- [Subscribe: *Equity Comp Gotchas* newsletter](https://www.linkedin.com/build-relation/newsletter-follow?entityUrn=7476698423992270848) — debut issue covers NASPP AI Week 2026"
     )
 
 # --- Main area ---
