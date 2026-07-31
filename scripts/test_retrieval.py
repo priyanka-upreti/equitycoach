@@ -24,7 +24,7 @@ CORPUS_DIR = Path(__file__).parent.parent / "corpus"
 CHROMA_PATH = CORPUS_DIR / "chroma_db"
 COLLECTION_NAME = "equitycoach_l1"
 
-VOYAGE_MODEL = "voyage-3"
+VOYAGE_MODEL = "voyage-law-2"
 
 # Known-answer questions covering all 4 L1 domains
 TEST_QUESTIONS = [

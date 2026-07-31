@@ -34,7 +34,7 @@ CHUNKS_PATH = CORPUS_DIR / "chunks.jsonl"
 CHROMA_PATH = CORPUS_DIR / "chroma_db"
 COLLECTION_NAME = "equitycoach_l1"
 
-VOYAGE_MODEL = "voyage-3"           # 1,024 dims, $0.06/1M tokens
+VOYAGE_MODEL = "voyage-law-2"       # 1,024 dims, trained on legal text, 50M free tokens
 VOYAGE_BATCH_SIZE = 128              # Voyage max per request
 VOYAGE_INPUT_TYPE = "document"       # optimize embeddings for retrieval doc side
 
