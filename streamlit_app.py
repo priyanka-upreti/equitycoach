@@ -295,9 +295,30 @@ with st.sidebar:
         value=st.session_state.anthropic_key,
         placeholder="sk-ant-...",
         help="Password field — key is masked. Stored only in session state.",
-    )
+    ).strip()  # trim any accidental whitespace from paste
     if api_key_input != st.session_state.anthropic_key:
         st.session_state.anthropic_key = api_key_input
+
+    # Format validation — catch common paste mistakes
+    if api_key_input:
+        if not api_key_input.startswith("sk-ant-"):
+            if api_key_input.startswith("pa-"):
+                st.error(
+                    "❌ **This looks like a Voyage API key, not an Anthropic key.** "
+                    "Anthropic keys start with `sk-ant-`. Get one at "
+                    "[console.anthropic.com/keys](https://console.anthropic.com/keys)."
+                )
+            else:
+                st.error(
+                    f"❌ **Key format looks wrong.** Anthropic keys start with `sk-ant-` "
+                    f"(yours starts with `{api_key_input[:6]}...`). Double-check you copied "
+                    "the right key from [console.anthropic.com/keys](https://console.anthropic.com/keys)."
+                )
+        elif len(api_key_input) < 40:
+            st.error(
+                "❌ **Key looks too short.** Anthropic keys are typically ~100 characters. "
+                "Try re-copying from the Anthropic console."
+            )
 
     st.info(
         "💵 **Cost estimate** (Claude Sonnet 4.5):\n"
@@ -451,8 +472,23 @@ if prompt:
 
         except Exception as e:
             err_type = type(e).__name__
-            st.error(f"❌ **{err_type}**: {e}")
-            if "authentication" in str(e).lower() or "api key" in str(e).lower():
-                st.info("Check your Anthropic API key in the sidebar. It should start with `sk-ant-`.")
-            if "rate" in str(e).lower():
-                st.info("Rate limited. Wait a moment and try again.")
+            err_str = str(e)
+            if "authentication" in err_str.lower() or "api key is invalid" in err_str.lower():
+                st.error(
+                    "❌ **Anthropic rejected the API key.**\n\n"
+                    "Common causes:\n"
+                    "1. The key was **revoked or replaced** — check [console.anthropic.com/keys](https://console.anthropic.com/keys) to confirm it's still active\n"
+                    "2. **Wrong key** was pasted (Voyage keys start with `pa-`, Anthropic keys start with `sk-ant-`)\n"
+                    "3. Key has **extra characters** — try re-copying it fresh from the console\n"
+                    "4. Account has **no credits** — check [console.anthropic.com/settings/billing](https://console.anthropic.com/settings/billing)"
+                )
+            elif "rate" in err_str.lower():
+                st.error(f"⏳ **Rate limited.** Wait a moment and try again.")
+            elif "credit" in err_str.lower() or "billing" in err_str.lower():
+                st.error(
+                    f"💳 **Account issue** — likely out of credits. "
+                    f"Check [console.anthropic.com/settings/billing](https://console.anthropic.com/settings/billing).\n\n"
+                    f"Raw error: {err_str}"
+                )
+            else:
+                st.error(f"❌ **{err_type}**: {err_str}")
