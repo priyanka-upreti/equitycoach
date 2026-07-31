@@ -289,7 +289,7 @@ with st.sidebar:
     st.markdown("#### 🔑 Bring Your Own API Key")
 
     st.success(
-        "🛡️ **Your key is safe:**\n"
+        "**Your key is safe:**\n"
         "- Stored **only in your browser session** — never on our servers\n"
         "- **Cleared automatically** when you close the tab\n"
         "- Sent **only to Anthropic's API** — never logged, stored, or shared\n"
@@ -330,10 +330,10 @@ with st.sidebar:
             )
 
     st.info(
-        "💵 **Cost estimate** (Claude Sonnet 4.5):\n"
-        "- 1 question ≈ **$0.014**\n"
-        "- 10 questions ≈ **$0.14**\n"
-        "- 100 questions ≈ **$1.40**\n\n"
+        "**Cost estimate** (Claude Sonnet 4.5):\n"
+        "- 1 question ≈ **\\$0.014**\n"
+        "- 10 questions ≈ **\\$0.14**\n"
+        "- 100 questions ≈ **\\$1.40**\n\n"
         "You're billed directly by Anthropic to your own account.",
         icon="💵",
     )
