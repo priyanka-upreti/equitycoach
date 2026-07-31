@@ -84,13 +84,13 @@ Retrieval-Augmented Generation (RAG) chatbot grounded in the **official CEPI Lev
 - [x] **Week 1 complete: 2,242 chunks / ~1M tokens across 6 books.** Rich per-chunk metadata (book, chapter, domains, topics, source pages). Ready for Week 2 embedding + retrieval. (2026-07-28)
 - [x] Public repo live: [github.com/priyanka-upreti/equitycoach](https://github.com/priyanka-upreti/equitycoach)
 
-### Week 2 (Aug 11-17): RAG pipeline
-- [ ] Voyage AI embeddings account + API key
-- [ ] Embed all chunks → Chroma vector store
-- [ ] Retrieval logic — top-k similarity + metadata filtering (domain/topic)
-- [ ] System prompt with three-rule governance + citation format
-- [ ] Anthropic Claude integration
-- [ ] End-to-end query test: `"When does §16(b) short-swing matching apply?"` → verify retrieval + citation
+### Week 2 (Aug 11-17): RAG pipeline ✅ COMPLETE (finished 2026-07-31, ahead of schedule)
+- [x] Voyage AI embeddings account + API key
+- [x] Embed all chunks → Chroma vector store (voyage-law-2, 2,242 chunks, 52s)
+- [x] Retrieval logic — top-k similarity + metadata filtering (domain/topic)
+- [x] System prompt with three-rule governance + citation format
+- [x] Anthropic Claude integration
+- [x] End-to-end query test: 5/5 known-answer questions returned correct chapters, citations, and disclaimers
 
 ### Week 3 (Aug 18-24): UI + governance + deploy
 - [ ] Streamlit chat UI with conversation history
@@ -168,4 +168,12 @@ EquityCoach/
 - **Result: 2,242 chunks / ~1.04M tokens / 6.4 MB `corpus/chunks.jsonl` (gitignored — copyrighted excerpts stay local).**
 - Committed 4 logical commits to public repo at [github.com/priyanka-upreti/equitycoach](https://github.com/priyanka-upreti/equitycoach). Repository shows clean, timestamped Week 1 work
 
-**Week 2 next:** embed the corpus into Chroma, build retrieval + Claude generation pipeline, end-to-end query test
+**2026-07-31 (Week 2 complete)** — RAG pipeline + Claude wired end-to-end:
+- Built `scripts/embed_corpus.py` — batch Voyage embed with retry, flattened metadata for Chroma storage. Full corpus embeds in ~52s
+- Built `scripts/test_retrieval.py` — 5 known-answer L1 questions across all 4 domains; every query returned correct book+chapter as top hit
+- Switched from voyage-3 to **voyage-law-2** after retrieval comparison: 4/5 queries improved (biggest wins: §16(b) short-swing +0.061 sim, §83(b) election returned the specifically-titled chapter). Bonus: 50M free-token allowance (voyage-3 had none)
+- Built `scripts/query_coach.py` — CLI Q&A prototype with governance system prompt implementing all four NASPP AI Week 2026 patterns (citation-based response, dual-mode design, prompt-engineering guardrails, three-rule mantra)
+- First real query test: "IRC §422 holding period requirements" → correct chapters retrieved, cited answer with concrete worked example, ~$0.014/query cost
+- 8 commits pushed to public repo
+
+**Week 3 next:** wrap CLI in Streamlit UI, BYOK flow, deploy to Streamlit Community Cloud → equitycoach.streamlit.app
