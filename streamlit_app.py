@@ -253,6 +253,15 @@ def ask_claude(anthro_client, user_message: str) -> tuple:
     return text, usage
 
 
+def escape_dollars(text: str) -> str:
+    """Escape $ so Streamlit's markdown doesn't interpret it as LaTeX math delimiter.
+
+    Without this, "$25,000 ... $10 per share" gets rendered as a math expression
+    with everything between the dollars turned into raw math tokens.
+    """
+    return text.replace("$", "\\$")
+
+
 # ---------- UI ----------
 
 st.set_page_config(
@@ -414,7 +423,7 @@ if not st.session_state.anthropic_key:
 # Replay history
 for msg in st.session_state.messages:
     with st.chat_message(msg["role"], avatar="🎓" if msg["role"] == "assistant" else "❓"):
-        st.markdown(msg["content"])
+        st.markdown(escape_dollars(msg["content"]) if msg["role"] == "assistant" else msg["content"])
 
 # Empty-state suggestions
 if not st.session_state.messages:
@@ -449,12 +458,12 @@ if prompt:
                 answer, usage = ask_claude(anthro, user_msg)
                 elapsed = time.time() - t0
 
-            st.markdown(answer)
+            st.markdown(escape_dollars(answer))
 
             st.caption(
                 f"⏱ {elapsed:.1f}s · "
                 f"🔢 {usage['input_tokens']} in + {usage['output_tokens']} out · "
-                f"💵 ${usage['input_tokens'] * CLAUDE_INPUT_PRICE + usage['output_tokens'] * CLAUDE_OUTPUT_PRICE:.4f}"
+                f"💵 \\${usage['input_tokens'] * CLAUDE_INPUT_PRICE + usage['output_tokens'] * CLAUDE_OUTPUT_PRICE:.4f}"
             )
 
             # Update history + counters. Retrieved chunks are NOT stored — only
@@ -469,6 +478,9 @@ if prompt:
             st.session_state.total_input_tokens += usage["input_tokens"]
             st.session_state.total_output_tokens += usage["output_tokens"]
             st.session_state.total_queries += 1
+            # Force a rerun so the sidebar Session Usage counters (rendered
+            # before this block executes) pick up the new totals immediately.
+            st.rerun()
 
         except Exception as e:
             err_type = type(e).__name__
