@@ -13,6 +13,7 @@ Deploy: Streamlit Cloud auto-picks this up as the entry point.
 """
 
 import os
+import shutil
 import textwrap
 import time
 from pathlib import Path
@@ -22,7 +23,8 @@ import streamlit as st
 # ---------- Config ----------
 REPO_ROOT = Path(__file__).parent
 CORPUS_DIR = REPO_ROOT / "corpus"
-CHROMA_PATH = CORPUS_DIR / "chroma_db"
+CHROMA_PATH_LOCAL = CORPUS_DIR / "chroma_db"       # for local dev
+CHROMA_PATH_DEPLOY = Path("/tmp/equitycoach_chroma_db")  # for deployed app
 COLLECTION_NAME = "equitycoach_l1"
 
 VOYAGE_MODEL = "voyage-law-2"
@@ -100,10 +102,10 @@ def init_state():
 
 # ---------- Voyage key resolution ----------
 
-def get_voyage_key() -> str:
-    """Try Streamlit secrets first, then .env, then env var."""
+def _get_secret(key: str) -> str:
+    """Try Streamlit secrets first, then .env / env var."""
     try:
-        return st.secrets["VOYAGE_API_KEY"]
+        return st.secrets[key]
     except Exception:
         pass
     try:
@@ -111,7 +113,50 @@ def get_voyage_key() -> str:
         load_dotenv(REPO_ROOT / ".env")
     except Exception:
         pass
-    return os.getenv("VOYAGE_API_KEY", "")
+    return os.getenv(key, "")
+
+
+def get_voyage_key() -> str:
+    return _get_secret("VOYAGE_API_KEY")
+
+
+@st.cache_resource
+def ensure_corpus_available() -> Path:
+    """Return the Chroma DB path. Uses local corpus if present, otherwise
+    downloads from a private HuggingFace dataset using HF_CORPUS_REPO and
+    HF_TOKEN secrets. Returns None if neither works."""
+    # Local dev: corpus committed alongside code
+    if CHROMA_PATH_LOCAL.exists() and any(CHROMA_PATH_LOCAL.iterdir()):
+        return CHROMA_PATH_LOCAL
+
+    # Deployed: pull from private HF dataset
+    hf_repo = _get_secret("HF_CORPUS_REPO")
+    hf_token = _get_secret("HF_TOKEN")
+    if not hf_repo or not hf_token:
+        return None
+
+    # Already downloaded in this container's lifetime
+    if CHROMA_PATH_DEPLOY.exists() and any(CHROMA_PATH_DEPLOY.iterdir()):
+        return CHROMA_PATH_DEPLOY
+
+    with st.spinner("First-time setup: downloading corpus from private storage..."):
+        from huggingface_hub import snapshot_download
+        CHROMA_PATH_DEPLOY.parent.mkdir(parents=True, exist_ok=True)
+        downloaded = snapshot_download(
+            repo_id=hf_repo,
+            repo_type="dataset",
+            token=hf_token,
+            local_dir=str(CHROMA_PATH_DEPLOY.parent / "hf_snapshot"),
+            allow_patterns=["chroma_db/**"],
+        )
+        src = Path(downloaded) / "chroma_db"
+        if not src.exists():
+            return None
+        # Copy to expected location
+        if CHROMA_PATH_DEPLOY.exists():
+            shutil.rmtree(CHROMA_PATH_DEPLOY)
+        shutil.copytree(src, CHROMA_PATH_DEPLOY)
+    return CHROMA_PATH_DEPLOY
 
 
 # ---------- Cached clients ----------
@@ -128,9 +173,10 @@ def get_voyage_client():
 @st.cache_resource
 def get_chroma_collection():
     import chromadb
-    if not CHROMA_PATH.exists():
+    chroma_path = ensure_corpus_available()
+    if chroma_path is None:
         return None
-    client = chromadb.PersistentClient(path=str(CHROMA_PATH))
+    client = chromadb.PersistentClient(path=str(chroma_path))
     try:
         return client.get_collection(COLLECTION_NAME)
     except Exception:
@@ -328,15 +374,6 @@ if not st.session_state.anthropic_key:
 for msg in st.session_state.messages:
     with st.chat_message(msg["role"], avatar="🎓" if msg["role"] == "assistant" else "❓"):
         st.markdown(msg["content"])
-        if msg.get("sources"):
-            with st.expander(f"📚 Retrieved passages ({len(msg['sources'])})"):
-                for i, src in enumerate(msg["sources"], 1):
-                    st.markdown(
-                        f"**#{i} · similarity {src['similarity']:.2f}** — "
-                        f"{src['book_name']}, Ch. {src['chapter']}"
-                    )
-                    if src.get("chapter_title") and src["chapter_title"] != src["book_name"]:
-                        st.caption(src["chapter_title"])
 
 # Empty-state suggestions
 if not st.session_state.messages:
@@ -372,14 +409,6 @@ if prompt:
                 elapsed = time.time() - t0
 
             st.markdown(answer)
-            with st.expander(f"📚 Retrieved passages ({len(hits)})"):
-                for i, src in enumerate(hits, 1):
-                    st.markdown(
-                        f"**#{i} · similarity {src['similarity']:.2f}** — "
-                        f"{src['book_name']}, Ch. {src['chapter']}"
-                    )
-                    if src.get("chapter_title") and src["chapter_title"] != src["book_name"]:
-                        st.caption(src["chapter_title"])
 
             st.caption(
                 f"⏱ {elapsed:.1f}s · "
@@ -387,11 +416,13 @@ if prompt:
                 f"💵 ${usage['input_tokens'] * CLAUDE_INPUT_PRICE + usage['output_tokens'] * CLAUDE_OUTPUT_PRICE:.4f}"
             )
 
-            # Update history + counters
+            # Update history + counters. Retrieved chunks are NOT stored — only
+            # the synthesized answer and usage stats. This is the transformative-use
+            # posture: source material informs the response but is never
+            # redistributed to users.
             st.session_state.messages.append({
                 "role": "assistant",
                 "content": answer,
-                "sources": hits,
                 "usage": usage,
             })
             st.session_state.total_input_tokens += usage["input_tokens"]

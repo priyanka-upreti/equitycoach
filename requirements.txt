@@ -5,3 +5,4 @@ anthropic>=0.40
 pypdf>=4.0
 python-dotenv>=1.0
 pytest>=8.0
+huggingface_hub>=0.20
