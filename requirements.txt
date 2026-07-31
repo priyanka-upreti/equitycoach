@@ -1,0 +1,10 @@
+streamlit>=1.35
+llama-index>=0.11
+llama-index-embeddings-voyageai>=0.2
+llama-index-llms-anthropic>=0.4
+llama-index-vector-stores-chroma>=0.2
+chromadb>=0.5
+pypdf>=4.0
+anthropic>=0.40
+python-dotenv>=1.0
+pytest>=8.0

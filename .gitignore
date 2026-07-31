@@ -1,0 +1,43 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+env/
+venv/
+.venv/
+ENV/
+
+# Environment
+.env
+.env.local
+.env.*.local
+
+# Vector store (regenerable)
+corpus/chroma_db/
+corpus/*.jsonl
+corpus/*.parquet
+
+# Source PDFs (large, copyrighted, DO NOT commit)
+corpus/pdfs/
+corpus/extracted_pages/
+
+# Streamlit
+.streamlit/secrets.toml
+
+# IDE
+.vscode/
+.idea/
+*.swp
+.DS_Store
+
+# Testing
+.pytest_cache/
+.coverage
+htmlcov/
+
+# Build
+dist/
+build/
+*.egg-info/

@@ -1,0 +1,432 @@
+{
+  "meta": {
+    "title": "CEPI Level 1 Detailed Reading List",
+    "year": 2026,
+    "source_document": "2026 Welcome Packet.pdf",
+    "source_pages": "22-31",
+    "extraction_date": "2026-07-28",
+    "note": "Only pages/sections referenced here are extracted for the EquityCoach RAG corpus. The Accounting for Equity Compensation 22nd ed. textbook is L2/L3 material and is explicitly excluded from L1 scope."
+  },
+  "books": {
+    "cepi_study_materials_eip": {
+      "name": "XYZ Corporation Equity Incentive Plan",
+      "file": "XYZ EIP.pdf",
+      "extract_whole": true
+    },
+    "cepi_study_materials_espp": {
+      "name": "XYZ Corporation Employee Stock Purchase Plan",
+      "file": "XYZ ESPP.pdf",
+      "extract_whole": true
+    },
+    "gps_publications": {
+      "name": "GPS Publications 4-in-1 Volume",
+      "file": "GPS 4-in-1 2024.pdf",
+      "note": "L1 references almost exclusively the GPS ESPP section"
+    },
+    "consider_your_options": {
+      "name": "Consider Your Options",
+      "file": "Consider Your Options 2026.pdf",
+      "note": "PDF has no outline bookmarks; chapters must be mapped via TOC page scrape"
+    },
+    "selected_issues": {
+      "name": "Selected Issues in Equity Compensation",
+      "file": "Selected Issues 22nd ed.pdf"
+    },
+    "stock_options_book": {
+      "name": "The Stock Options Book",
+      "file": "Stock Options Book 26th ed.pdf"
+    },
+    "equity_alternatives": {
+      "name": "Equity Alternatives",
+      "file": "Equity Alternatives 23rd ed.pdf"
+    }
+  },
+  "syllabus": {
+    "accounting": {
+      "name": "Accounting",
+      "topics": {
+        "espp": {
+          "name": "ESPP",
+          "subtopics": ["Fair value", "Grant date", "Option-like features", "Period over which expense is accrued", "Purchase discount"],
+          "sources": {
+            "gps_publications": ["GPS ESPP 2.2", "GPS ESPP 3.4", "GPS ESPP 11"],
+            "selected_issues": ["11.6"],
+            "stock_options_book": ["10.1", "10.4"]
+          }
+        },
+        "forfeiture_rate": {
+          "name": "Forfeiture rate",
+          "subtopics": ["Accounting for forfeitures as they occur", "Adjusting to actual outcome", "Initial estimate"],
+          "sources": {
+            "stock_options_book": ["10.5"]
+          }
+        },
+        "international": {
+          "name": "International",
+          "subtopics": ["Role of the IASB"],
+          "sources": {
+            "stock_options_book": ["10 Intro", "Glossary"]
+          }
+        },
+        "liability_treatment": {
+          "name": "Liability treatment",
+          "subtopics": ["Cash settlements"],
+          "sources": {
+            "stock_options_book": ["10.1", "10.4"],
+            "equity_alternatives": ["6.4"]
+          }
+        },
+        "measurement_date": {
+          "name": "Measurement date",
+          "subtopics": ["General understanding", "Grants contingent on approval"],
+          "sources": {
+            "stock_options_book": ["10.1"]
+          }
+        },
+        "measurement_of_compensation_cost": {
+          "name": "Measurement of compensation cost",
+          "subtopics": ["RSAs/RSUs", "Stock options and stock-settled SARs"],
+          "sources": {
+            "stock_options_book": ["10.1", "10.4"],
+            "equity_alternatives": ["3.6", "6.1", "6.4"]
+          }
+        },
+        "modifications": {
+          "name": "Modifications",
+          "subtopics": ["Definition of modification"],
+          "sources": {
+            "stock_options_book": ["10.6"],
+            "equity_alternatives": ["6.2", "6.4"]
+          }
+        },
+        "recognition_of_compensation_cost": {
+          "name": "Recognition of compensation cost",
+          "subtopics": ["Cancellation/expiration", "Derived service period", "Explicit service period", "Implicit service period", "Straight-line and accelerated accrual"],
+          "sources": {
+            "gps_publications": ["GPS ESPP 11.3.2"],
+            "stock_options_book": ["10.3", "10.4"],
+            "equity_alternatives": ["6.3"]
+          }
+        },
+        "role_of_the_fasb": {
+          "name": "Role of the FASB",
+          "subtopics": [],
+          "sources": {
+            "stock_options_book": ["1.2"]
+          }
+        },
+        "valuation_privately_held": {
+          "name": "Valuation by privately held companies",
+          "subtopics": [],
+          "sources": {
+            "consider_your_options": ["4.3"],
+            "stock_options_book": ["10.2"],
+            "equity_alternatives": ["6.1"]
+          }
+        },
+        "valuation_factors": {
+          "name": "Valuation factors",
+          "subtopics": ["Equity treatment", "Expected term", "Impact on value", "Interest rate selection", "Required factors", "Volatility"],
+          "sources": {
+            "consider_your_options": ["4.3", "5.4"],
+            "stock_options_book": ["10.1", "10.2", "Exhibit 10-2"],
+            "equity_alternatives": ["6.1"]
+          }
+        },
+        "valuation_models": {
+          "name": "Valuation models",
+          "subtopics": ["Black-Scholes", "Lattice models"],
+          "sources": {
+            "stock_options_book": ["10.2"],
+            "equity_alternatives": ["6.1"]
+          }
+        }
+      }
+    },
+    "corporate_and_securities_law": {
+      "name": "Corporate and Securities Law",
+      "topics": {
+        "blue_sky_laws": {
+          "name": "Blue Sky laws",
+          "subtopics": ["General Understanding"],
+          "sources": {
+            "consider_your_options": ["3"],
+            "stock_options_book": ["8.1"],
+            "equity_alternatives": ["1.1", "3.5"]
+          }
+        },
+        "corporate_governance": {
+          "name": "Corporate governance",
+          "subtopics": ["Charter and bylaws", "Plan and grant modifications", "Shareholder concerns and considerations", "Stock market regulations"],
+          "sources": {
+            "selected_issues": ["1.1", "4.2", "5.3", "8.2", "9.2", "13 intro", "13.1", "Glossary"],
+            "stock_options_book": ["4.3"],
+            "equity_alternatives": ["3.3"]
+          }
+        },
+        "corporate_law": {
+          "name": "Corporate law",
+          "subtopics": ["Authorization to grant equity", "Plan prospectus", "Voting rights"],
+          "sources": {
+            "cepi_study_materials_eip": ["whole"],
+            "consider_your_options": ["10"],
+            "selected_issues": ["1.4", "5.1", "7.3", "Glossary"],
+            "stock_options_book": ["4.3", "6.2", "6.3", "8.3"],
+            "equity_alternatives": ["3.3", "Table 3-1"]
+          }
+        },
+        "federal_reserve_act": {
+          "name": "Federal Reserve Act",
+          "subtopics": ["Fundamentals of Regulation T"],
+          "sources": {
+            "selected_issues": ["4.2", "Glossary"],
+            "stock_options_book": ["7.1"]
+          }
+        },
+        "sarbanes_oxley_act_2002": {
+          "name": "Sarbanes-Oxley Act of 2002",
+          "subtopics": ["General understanding"],
+          "sources": {
+            "selected_issues": ["1.4"],
+            "stock_options_book": ["13.2"]
+          }
+        },
+        "securities_act_1933": {
+          "name": "Securities Act of 1933",
+          "subtopics": ["Form S-8", "Rule 144", "Rule 701"],
+          "sources": {
+            "consider_your_options": ["3", "23"],
+            "selected_issues": ["1.5", "2.1", "2.5", "3.2", "4.2", "5.1", "Ch. 2 Appendix B-3"],
+            "stock_options_book": ["8.2", "8.3", "Exhibit 8-1", "Appendix 2"],
+            "equity_alternatives": ["3.5"]
+          }
+        },
+        "securities_exchange_act_1934": {
+          "name": "Securities Exchange Act of 1934",
+          "subtopics": ["General understanding of insider trading", "General understanding of insider trading under Rule 10b-5", "Regulation S-K", "Rule 10b5-1", "Section 16", "Section 16(a) reporting", "Section 16(b) short-swing profits", "Terminology"],
+          "sources": {
+            "consider_your_options": ["3", "23"],
+            "selected_issues": ["1.2", "2.1", "2.2", "2.3", "2.4", "4.3", "5.2", "5.3", "12.3", "12.8", "13", "Ch. 2 Appendix B-1", "Ch. 2 Appendix B-2", "Ch. 2 Appendix C", "Glossary"],
+            "stock_options_book": ["8.2", "8.4", "8.5", "8.6", "16.2"],
+            "equity_alternatives": ["3.3", "3.5", "4.1"]
+          }
+        },
+        "securities_law_general": {
+          "name": "Securities law - general understanding",
+          "subtopics": ["General understanding of multiple classes of stock", "Par value"],
+          "sources": {
+            "cepi_study_materials_eip": ["whole"],
+            "selected_issues": ["5.3", "Glossary"],
+            "stock_options_book": ["Glossary"],
+            "equity_alternatives": ["3.3", "8.2"]
+          }
+        }
+      }
+    },
+    "equity_plan_design_analysis_administration": {
+      "name": "Equity Plan Design, Analysis, and Administration",
+      "topics": {
+        "espp_features": {
+          "name": "ESPP features",
+          "subtopics": ["Eligible Compensation", "Enrollment date", "Enrollment Process", "General knowledge and understanding", "Offering period", "Price determination", "Purchase date", "Purchase period"],
+          "sources": {
+            "cepi_study_materials_espp": ["whole"],
+            "gps_publications": ["GPS ESPP 1.1", "GPS ESPP 3.2", "GPS ESPP 3.3", "GPS ESPP 4", "GPS ESPP 5.1", "GPS ESPP 7", "GPS ESPP Appendix B"],
+            "consider_your_options": ["26"],
+            "selected_issues": ["11.1", "11.2", "11.3"],
+            "stock_options_book": ["1.1", "5 intro", "5.2", "Exhibit 5-1", "Exhibit 5-2", "Exhibit 5-3"],
+            "equity_alternatives": ["7.3"]
+          }
+        },
+        "exercise_methods": {
+          "name": "Exercise Methods",
+          "subtopics": [],
+          "sources": {
+            "cepi_study_materials_eip": ["whole"],
+            "consider_your_options": ["10"],
+            "selected_issues": ["1.5", "Glossary"],
+            "stock_options_book": ["7.1", "7.2"]
+          }
+        },
+        "governing_and_supporting_documents": {
+          "name": "Governing and supporting documents",
+          "subtopics": ["Grant agreement", "Grant procedures", "Notice of exercise", "Plan provisions"],
+          "sources": {
+            "cepi_study_materials_eip": ["whole"],
+            "cepi_study_materials_espp": ["whole"],
+            "gps_publications": ["GPS ESPP 3.5", "GPS ESPP 6.3"],
+            "consider_your_options": ["3", "10", "22", "29"],
+            "selected_issues": ["1", "4.2", "5.3", "6.2", "6.3", "7.1", "7.6", "8.4", "10.1", "10.2", "10.3", "10.4", "10.7", "10.8", "11.3", "Glossary"],
+            "stock_options_book": ["1.1", "2.1", "2.6", "3.1", "3.2", "3.5", "4.1", "4.3", "4.5", "4.7", "5.1", "5.4", "7.3", "11.2", "12 intro", "12.1", "15.1", "15.2", "15.3", "16.1", "Exhibit 4-1", "Glossary"],
+            "equity_alternatives": ["1.5", "2.3", "3.3", "3.8", "Table 3-1"]
+          }
+        },
+        "grants_awards": {
+          "name": "Grants/awards",
+          "subtopics": ["Calculating vesting", "Definition of an equity award", "Definition of vesting"],
+          "sources": {
+            "cepi_study_materials_eip": ["whole"],
+            "consider_your_options": ["7", "10", "22"],
+            "selected_issues": ["1.4"],
+            "stock_options_book": ["1.1", "Exhibit 6-1", "Glossary"],
+            "equity_alternatives": ["1.5", "2.3"]
+          }
+        },
+        "performance_awards": {
+          "name": "Performance awards",
+          "subtopics": ["General knowledge and understanding"],
+          "sources": {
+            "cepi_study_materials_eip": ["whole"],
+            "selected_issues": ["1.4"],
+            "stock_options_book": ["6.1"],
+            "equity_alternatives": ["4.1", "4.2", "4.3", "4.4", "4.5"]
+          }
+        },
+        "phantom_stock": {
+          "name": "Phantom stock",
+          "subtopics": [],
+          "sources": {
+            "stock_options_book": ["6.5"],
+            "equity_alternatives": ["1.1", "1.4", "2.1", "2.2", "2.3", "2.5"]
+          }
+        },
+        "planning": {
+          "name": "Planning",
+          "subtopics": ["Basic ESPP provisions", "Vesting requirements"],
+          "sources": {
+            "cepi_study_materials_eip": ["whole"],
+            "consider_your_options": ["10", "22", "23"],
+            "selected_issues": ["1.4", "11.3", "Glossary"],
+            "stock_options_book": ["4.1", "5.2", "Exhibit 2-1"],
+            "equity_alternatives": ["2.3", "3.3"]
+          }
+        },
+        "restricted_stock": {
+          "name": "Restricted stock",
+          "subtopics": ["Dividends and dividend equivalents", "Features", "Methods of tax payment", "RSAs", "RSUs"],
+          "sources": {
+            "cepi_study_materials_eip": ["whole"],
+            "consider_your_options": ["7"],
+            "selected_issues": ["1.6", "12.8"],
+            "stock_options_book": ["6.2", "6.3", "Exhibit 6"],
+            "equity_alternatives": ["1.4", "3 intro", "3.1", "3.2", "3.3", "3.4", "3.8", "Table 3-1"]
+          }
+        },
+        "sars": {
+          "name": "SARs",
+          "subtopics": ["Basic characteristics"],
+          "sources": {
+            "cepi_study_materials_eip": ["whole"],
+            "selected_issues": ["Glossary"],
+            "stock_options_book": ["6.4"],
+            "equity_alternatives": ["1.1", "1.2", "1.4", "1.5", "2"]
+          }
+        },
+        "stock_options": {
+          "name": "Stock options",
+          "subtopics": ["Grant term/expirations"],
+          "sources": {
+            "cepi_study_materials_eip": ["whole"],
+            "consider_your_options": ["3", "10"],
+            "selected_issues": ["1.5", "Glossary"],
+            "stock_options_book": ["1.1", "Exhibit 6-1", "Glossary"]
+          }
+        },
+        "transfer_agent": {
+          "name": "Transfer agent",
+          "subtopics": ["Reserves"],
+          "sources": {
+            "selected_issues": ["12.5"]
+          }
+        }
+      }
+    },
+    "taxation": {
+      "name": "Taxation",
+      "topics": {
+        "basics_of_taxation": {
+          "name": "Basics of taxation",
+          "subtopics": ["Terms and definitions"],
+          "sources": {
+            "consider_your_options": ["6", "8"],
+            "selected_issues": ["1.5", "4.7", "Glossary"],
+            "stock_options_book": ["2.2", "2.4", "6.2", "6.3"]
+          }
+        },
+        "irc_section_422_isos": {
+          "name": "IRC Section 422 - ISOs",
+          "subtopics": ["Employee tax treatment", "Employer tax treatment", "Maintaining ISO status", "Statutory requirements"],
+          "sources": {
+            "consider_your_options": ["10", "15", "16", "17", "19", "21", "25"],
+            "selected_issues": ["1.5"],
+            "stock_options_book": ["1.1", "3 intro", "3.1", "3.2", "3.3", "3.4", "4.3", "7.1", "9.2", "12.1"]
+          }
+        },
+        "irc_section_423_espps": {
+          "name": "IRC Section 423 - ESPPs",
+          "subtopics": ["Employee tax treatment", "Employer tax treatment", "Statutory requirements"],
+          "sources": {
+            "gps_publications": ["GPS ESPP 3.4", "GPS ESPP 8.3", "GPS ESPP 8.4", "GPS ESPP 8.5", "GPS ESPP Exhibit 8-3", "GPS ESPP Exhibit 8-4", "GPS ESPP Exhibit 8-5"],
+            "selected_issues": ["11.2", "11.3", "11.4", "11.7", "Ch. 11 Appendix"],
+            "stock_options_book": ["5.1", "5.2", "5.3", "9.2", "Exhibit 5-4"]
+          }
+        },
+        "irc_section_6039": {
+          "name": "IRC Section 6039",
+          "subtopics": ["Requirements and tracking"],
+          "sources": {
+            "gps_publications": ["GPS ESPP 8.4"],
+            "selected_issues": ["1.5", "11.4"],
+            "stock_options_book": ["9.3"]
+          }
+        },
+        "irc_section_83": {
+          "name": "IRC Section 83",
+          "subtopics": ["83(b) elections", "General understanding"],
+          "sources": {
+            "consider_your_options": ["7", "8", "9", "22", "24", "25"],
+            "selected_issues": ["1.6"],
+            "stock_options_book": ["2.1", "2.2", "2.3", "2.4", "6.3"],
+            "equity_alternatives": ["1.4", "3.4", "3.8"]
+          }
+        },
+        "non_423_espp": {
+          "name": "Non-423 ESPP",
+          "subtopics": ["Employee tax treatment", "Employer tax treatment"],
+          "sources": {
+            "gps_publications": ["GPS ESPP 3.5", "GPS ESPP 8.1", "GPS ESPP 8.2", "GPS ESPP 8.4", "GPS ESPP 11.5", "GPS ESPP Exhibit 8-2", "GPS ESPP Exhibit 8-7"],
+            "selected_issues": ["11.1", "11.5"]
+          }
+        },
+        "nsos": {
+          "name": "NSOs",
+          "subtopics": ["Employee tax treatment", "Employer tax treatment", "Withholding"],
+          "sources": {
+            "consider_your_options": ["6", "10", "13", "14"],
+            "selected_issues": ["1.4", "1.5"],
+            "stock_options_book": ["2.2", "2.7", "4.2", "9.1", "9.2", "Exhibit 2-1", "Exhibit 4-3", "Exhibit 9-1"]
+          }
+        },
+        "restricted_stock_tax": {
+          "name": "Restricted stock (Taxation)",
+          "subtopics": ["Employee tax treatment", "Employer tax treatment"],
+          "sources": {
+            "consider_your_options": ["6", "7", "8", "9", "24"],
+            "selected_issues": ["1.4", "1.6"],
+            "stock_options_book": ["6.2", "6.3", "6.4", "Exhibit 6-1"],
+            "equity_alternatives": ["1.4", "3.1", "3.2", "3.3", "3.4", "3.6", "3.8", "Table 3-1"]
+          }
+        },
+        "special_circumstances": {
+          "name": "Special circumstances",
+          "subtopics": ["Death", "LOA/disability", "Mergers and acquisitions"],
+          "sources": {
+            "consider_your_options": ["15"],
+            "selected_issues": ["6.3", "7.2", "11.3"],
+            "stock_options_book": ["2.7", "3.2", "11.1"]
+          }
+        }
+      }
+    }
+  }
+}
