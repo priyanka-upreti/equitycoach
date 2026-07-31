@@ -278,20 +278,40 @@ with st.sidebar:
     st.divider()
 
     st.markdown("#### 🔑 Bring Your Own API Key")
-    st.markdown(
-        "This tool uses **your** Anthropic API key so you pay only for your "
-        "own queries. Get one at [console.anthropic.com](https://console.anthropic.com). "
-        "Cost: ~$0.014 per question."
+
+    st.success(
+        "🛡️ **Your key is safe:**\n"
+        "- Stored **only in your browser session** — never on our servers\n"
+        "- **Cleared automatically** when you close the tab\n"
+        "- Sent **only to Anthropic's API** — never logged, stored, or shared\n"
+        "- **You control it** — revoke anytime from your Anthropic dashboard\n"
+        "- **Zero third parties** — key goes browser → Anthropic, nothing in between",
+        icon="🛡️",
     )
+
     api_key_input = st.text_input(
         "Anthropic API key",
         type="password",
         value=st.session_state.anthropic_key,
         placeholder="sk-ant-...",
-        help="Stored only in this browser session. Never persisted to disk.",
+        help="Password field — key is masked. Stored only in session state.",
     )
     if api_key_input != st.session_state.anthropic_key:
         st.session_state.anthropic_key = api_key_input
+
+    st.info(
+        "💵 **Cost estimate** (Claude Sonnet 4.5):\n"
+        "- 1 question ≈ **$0.014**\n"
+        "- 10 questions ≈ **$0.14**\n"
+        "- 100 questions ≈ **$1.40**\n\n"
+        "You're billed directly by Anthropic to your own account.",
+        icon="💵",
+    )
+
+    st.caption(
+        "Don't have a key? [Sign up at console.anthropic.com](https://console.anthropic.com). "
+        "New accounts often include free trial credits."
+    )
 
     st.divider()
 
