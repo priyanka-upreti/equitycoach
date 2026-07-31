@@ -80,9 +80,9 @@ Retrieval-Augmented Generation (RAG) chatbot grounded in the **official CEPI Lev
 - [x] Build `scripts/parse_toc.py` — printed TOC parser with offset detection (Selected Issues + CVO) (2026-07-28)
 - [x] Build `scripts/augment_maps.py` — chapter intros, appendix aliases, exhibits/tables/glossary + syllabus typo fallbacks (2026-07-28)
 - [x] **100% syllabus resolution achieved: 358/358 non-CEPI references** resolve to page ranges. CEPI Study Materials use extract_whole. (2026-07-28)
-- [ ] Build `scripts/extract_l1_corpus.py` — reads syllabus_l1.json × chapter_maps.json → extracts only in-syllabus pages
-- [ ] Chunk extracted text (500-token chunks with 100-token overlap)
-- [ ] Save as `corpus/chunks.jsonl` with metadata per chunk (`{book, chapter, domain, topic}`)
+- [x] Build `scripts/extract_l1_corpus.py` — reads syllabus_l1.json × chapter_maps.json, extracts syllabus-scoped pages, chunks at sentence boundaries, writes `corpus/chunks.jsonl` (2026-07-28)
+- [x] **Week 1 complete: 2,242 chunks / ~1M tokens across 6 books.** Rich per-chunk metadata (book, chapter, domains, topics, source pages). Ready for Week 2 embedding + retrieval. (2026-07-28)
+- [x] Public repo live: [github.com/priyanka-upreti/equitycoach](https://github.com/priyanka-upreti/equitycoach)
 
 ### Week 2 (Aug 11-17): RAG pipeline
 - [ ] Voyage AI embeddings account + API key
@@ -160,4 +160,12 @@ EquityCoach/
 - Built 4-script pipeline: `build_chapter_maps.py` (outline extraction) → `scan_content_chapters.py` (content scan for books w/ broken outlines) → `parse_toc.py` (printed TOC parser + offset detection) → `augment_maps.py` (intros, aliases, exhibits, tables, glossary, syllabus-typo fallbacks)
 - Debugged and fixed: Word tracked-change markers in Selected Issues outline, embedded digits in titles being misread as page numbers, duplicate outline entries in Equity Alternatives causing collapsed ranges
 - **Result: 100% resolution of all 358 non-CEPI syllabus references to page ranges.** CEPI Study Materials (XYZ EIP + XYZ ESPP) use extract_whole.
-- Next session: build `scripts/extract_l1_corpus.py` (surgical page extraction + chunking) — the final Week 1 deliverable
+
+**2026-07-28 (Week 1 finale)** — Corpus extraction + public repo:
+- Built `extract_l1_corpus.py` — reads syllabus × chapter maps, extracts syllabus-scoped pages, chunks at sentence boundaries with ~500-token chunks and ~100-token overlap
+- Each chunk carries rich metadata: `book_id, book_name, chapter, chapter_title, domains, topics (with subtopics), source_pages, detection method, text, char_count, approx_tokens`
+- Multi-topic tagging: when the same chapter is referenced by multiple L1 topics, each chunk carries all of them (a chunk from Selected Issues 11.3 carries both ESPP features + governing docs + planning + IRC §423 topic tags)
+- **Result: 2,242 chunks / ~1.04M tokens / 6.4 MB `corpus/chunks.jsonl` (gitignored — copyrighted excerpts stay local).**
+- Committed 4 logical commits to public repo at [github.com/priyanka-upreti/equitycoach](https://github.com/priyanka-upreti/equitycoach). Repository shows clean, timestamped Week 1 work
+
+**Week 2 next:** embed the corpus into Chroma, build retrieval + Claude generation pipeline, end-to-end query test
